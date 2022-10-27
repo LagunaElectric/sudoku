@@ -1,0 +1,31 @@
+.board {
+  --size: calc(50px * 9);
+  display: grid;
+  width: 476px;
+  margin-left: calc(50vw - calc(var(--size) / 2));
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.board> :nth-child(3n) {
+  border-right: 3px solid black;
+}
+
+.board> :nth-child(9n-8) {
+  border-left: 3px solid black;
+}
+
+.board> :nth-child(-n+9) {
+  border-top: 3px solid black;
+}
+
+.board> :nth-child(n+73):nth-child(-n+81) {
+  border-bottom: 3px solid black;
+}
+
+.board> :nth-child(n+19):nth-child(-n+27) {
+  border-bottom: 3px solid black;
+}
+
+.board> :nth-child(n+46):nth-child(-n+54) {
+  border-bottom: 3px solid black;
+}

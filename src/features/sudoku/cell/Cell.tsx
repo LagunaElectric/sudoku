@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { BoardPayload, selectGrid, setSquare } from '../board/boardSlice'
+import { valdiateSquare } from '../Sudoku'
 import styles from './Cell.module.css'
 
 interface CellProps {
@@ -13,41 +14,19 @@ export function Cell(props: CellProps) {
   const dispatch = useAppDispatch()
   const board = useAppSelector(selectGrid)
   const value = useAppSelector(selectGrid)[props.x][props.y]
-  const squareColor = valdiateSquare(props.x, props.y, value ?? 0) ? 'white' : 'red'
+  const squareColor = valdiateSquare(board, props.x, props.y, value ?? 0) ? 'white' : 'red'
 
-
-  function valdiateSquare(x: number, y: number, value: number) {
-    // check row
-    for (let i = 0; i < 9; i++) {
-      if (i === props.y) continue
-      if (board[x][i] === value) {
-        return false
-      }
-    }
-    // check column
-    for (let i = 0; i < 9; i++) {
-      if (i === props.x) continue
-      if (board[i][y] === value) {
-        return false
-      }
-    }
-    // check box
-    const boxX = Math.floor(x / 3)
-    const boxY = Math.floor(y / 3)
-    for (let i = boxX * 3; i < boxX * 3 + 3; i++) {
-      for (let j = boxY * 3; j < boxY * 3 + 3; j++) {
-        if (i === props.x && j === props.y) continue
-        if (board[i][j] === value) {
-          return false
-        }
-      }
-    }
-    return true
-  }
 
 
   function inputChange(e: ChangeEvent<HTMLInputElement>) {
     const newValue = Number(e.currentTarget.value.slice(-1))
+
+    // Blank out the input if the value is not 1-9
+    if (newValue === 0) e.currentTarget.value = ''
+
+    // Remove 0s in case they type them in front of the number
+    // Without this they will stay there.
+    e.currentTarget.value = e.currentTarget.value.toString().replaceAll('0', '')
 
     console.log('e.currentTarget.value', e.currentTarget.value)
     console.log('newValue', newValue)
@@ -63,7 +42,7 @@ export function Cell(props: CellProps) {
   return (
     <>
       <div className={ styles.cell } style={ { backgroundColor: squareColor } }>
-        { <input className={ styles.input } type="number" value={ value } onChange={ inputChange } /> }
+        <input className={ styles.input } type="number" value={ value } onChange={ inputChange } />
       </div>
     </>
   )

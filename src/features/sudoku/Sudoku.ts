@@ -1,3 +1,5 @@
+import _ from "lodash"
+
 export function valdiateSquare(
   board: Array<Array<number | undefined>>,
   x: number,
@@ -53,29 +55,23 @@ export function solveBoard(board: Array<Array<number | undefined>>) {
   return newBoard
 }
 
-// generate a random valid board
+// generate a random solution
 export function generateBoard() {
-  const board: Array<Array<number | undefined>> = []
-  for (let i = 0; i < 9; i++) {
-    board.push([])
-    for (let j = 0; j < 9; j++) {
-      board[i].push(undefined)
+  let board: Array<Array<number | undefined>> = new Array(9).fill([])
+  board = board.map(() => new Array(9).fill(undefined))
+
+  const n = 20
+  for (let i = 0; i < n; i++) {
+    const x = Math.floor(Math.random() * 9)
+    const y = Math.floor(Math.random() * 9)
+    const value = Math.floor(Math.random() * 9) + 1
+    if (valdiateSquare(board, x, y, value)) {
+      board[x][y] = value
     }
   }
   const newBoard = solveBoard(board)
   if (!newBoard) {
     throw new Error("Could not generate board")
   }
-  // shuffle the board
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      const x = Math.floor(Math.random() * 9)
-      const y = Math.floor(Math.random() * 9)
-      const firstSquare = newBoard[i][j]
-      const secondSquare = newBoard[x][y]
-      newBoard[x][y] = firstSquare
-      newBoard[i][j] = secondSquare
-    }
-  }
-  return newBoard
+  return board
 }

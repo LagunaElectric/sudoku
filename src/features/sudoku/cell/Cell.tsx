@@ -14,7 +14,7 @@ export function Cell(props: CellProps) {
   const dispatch = useAppDispatch()
   const board = useAppSelector(selectGrid)
   const value = useAppSelector(selectGrid)[props.x][props.y]
-  const squareColor = valdiateSquare(board, props.x, props.y, value ?? 0) ? 'white' : 'red'
+  const squareColor = valdiateSquare(board, props.x, props.y, value ?? 0) ? 'transparent' : '#ff000055'
 
 
 
@@ -41,8 +41,10 @@ export function Cell(props: CellProps) {
 
   return (
     <>
-      <div className={ styles.cell } style={ { backgroundColor: squareColor } }>
-        <input className={ styles.input } type="number" value={ value } onChange={ inputChange } />
+      <div className={ styles.cell }>
+        <div className={ styles['status-wrapper'] } style={ { backgroundColor: squareColor } }>
+          <input className={ styles.input } type="number" value={ value } onChange={ inputChange } />
+        </div>
       </div>
     </>
   )

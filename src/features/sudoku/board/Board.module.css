@@ -1,31 +1,33 @@
+:root {
+  --grid-color: rgb(146, 146, 146);
+}
+
+/* The board is a grid of 9x9 cells */
 .board {
   --size: calc(50px * 9);
   display: grid;
-  width: 476px;
+  width: 470px;
   margin-left: calc(50vw - calc(var(--size) / 2));
   grid-template-columns: repeat(9, 1fr);
 }
 
-.board> :nth-child(3n) {
-  border-right: 3px solid black;
+/* Each row except the last should have a 2px bottom border */
+.board> :not(:nth-child(n+73):nth-child(-n+81)) {
+  border-bottom: 2px solid var(--grid-color);
 }
 
-.board> :nth-child(9n-8) {
-  border-left: 3px solid black;
+/* Each column except the last should have a 2px right border */
+.board> :not(:nth-child(9n+9)) {
+  border-right: 2px solid var(--grid-color);
 }
 
-.board> :nth-child(-n+9) {
-  border-top: 3px solid black;
-}
-
-.board> :nth-child(n+73):nth-child(-n+81) {
-  border-bottom: 3px solid black;
-}
-
-.board> :nth-child(n+19):nth-child(-n+27) {
-  border-bottom: 3px solid black;
-}
-
+/* The third and sixth rows should have a 4px bottom border */
+.board> :nth-child(n+19):nth-child(-n+27),
 .board> :nth-child(n+46):nth-child(-n+54) {
-  border-bottom: 3px solid black;
+  border-bottom: 4px solid var(--grid-color);
+}
+
+/* The third and sixth columns should have a 4px right border */
+.board> :nth-child(3n):not(:nth-child(9n)) {
+  border-right: 4px solid var(--grid-color);
 }

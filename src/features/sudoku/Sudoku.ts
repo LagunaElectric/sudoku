@@ -1,5 +1,3 @@
-import _ from "lodash"
-
 export function valdiateSquare(
   board: Array<Array<number | undefined>>,
   x: number,

@@ -1,118 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import _ from "lodash"
 import { RootState } from "../../../app/store"
 
 export interface BoardState {
-  grid: Array<Array<number | undefined>>
+  grid: Array<Array<number | "">>
   status: "uninitialized" | "new" | "incomplete" | "solved"
 }
 
 export interface BoardPayload {
   x: number
   y: number
-  val: number
+  val: number | ""
 }
 
 const initialState: BoardState = {
   grid: [
-    [
-      1,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ],
-    [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ],
-    [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ],
-    [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ],
-    [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      1,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ],
-    [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ],
-    [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ],
-    [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ],
-    [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      1
-    ]
+    [1, "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", 1, "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", 1]
   ],
   status: "uninitialized"
 }
@@ -123,12 +34,11 @@ export const boardSlice = createSlice({
   reducers: {
     setSquare: (state, action: PayloadAction<BoardPayload>) => {
       const { x, y, val } = action.payload
-      state.grid[x][y] = val > 9 ? 9 : val <= 0 ? undefined : val
+      let grid = _.cloneDeep(state.grid)
+      grid[x][y] = val
+      state.grid = grid
     },
-    setGrid: (
-      state,
-      action: PayloadAction<Array<Array<number | undefined>>>
-    ) => {
+    setGrid: (state, action: PayloadAction<Array<Array<number | "">>>) => {
       state.grid = action.payload
     }
   }

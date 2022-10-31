@@ -6,30 +6,34 @@ import styles from './Cell.module.css'
 
 interface CellProps {
   x: number,
-  y: number
+  y: number,
+  value: number | ''
 }
 
 
 export function Cell(props: CellProps) {
   const dispatch = useAppDispatch()
   const board = useAppSelector(selectGrid)
-  const value = useAppSelector(selectGrid)[props.x][props.y]
-  const squareColor = valdiateSquare(board, props.x, props.y, value ?? 0) ? 'transparent' : '#ff000055'
+  const squareColor = valdiateSquare(board, props.x, props.y, props.value ?? 0) ? 'transparent' : '#ff000055'
 
 
 
   function inputChange(e: ChangeEvent<HTMLInputElement>) {
-    const newValue = Number(e.currentTarget.value.slice(-1))
+    let newValue: number | '' = Number(e.currentTarget.value.slice(-1))
+
+    // first validate, then set state
+
+    // TODO: Show an error instead of just not allowing the input
 
     // Blank out the input if the value is not 1-9
-    if (newValue === 0) e.currentTarget.value = ''
+    if (newValue === 0) newValue = ''
 
     // Remove 0s in case they type them in front of the number
     // Without this they will stay there.
-    e.currentTarget.value = e.currentTarget.value.toString().replaceAll('0', '')
+    // e.currentTarget.value = e.currentTarget.value.toString().replaceAll('0', '')
 
-    console.log('e.currentTarget.value', e.currentTarget.value)
-    console.log('newValue', newValue)
+    // console.log('e.currentTarget.value', e.currentTarget.value)
+    // console.log('newValue', newValue)
 
     const payload: BoardPayload = {
       x: props.x,
@@ -43,7 +47,7 @@ export function Cell(props: CellProps) {
     <>
       <div className={ styles.cell }>
         <div className={ styles['status-wrapper'] } style={ { backgroundColor: squareColor } }>
-          <input className={ styles.input } type="number" value={ value } onChange={ inputChange } />
+          <input className={ styles.input } type="number" maxLength={ 1 } value={ props.value } onChange={ inputChange } />
         </div>
       </div>
     </>

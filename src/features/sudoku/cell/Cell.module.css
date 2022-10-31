@@ -12,8 +12,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  /* should be slightly smaller than a cell */
+  width: 45px;
+  height: 45px;
   border-radius: 50px;
 }
 

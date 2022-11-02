@@ -7,7 +7,7 @@ export interface BoardState {
   status: "uninitialized" | "new" | "incomplete" | "solved"
 }
 
-export interface BoardPayload {
+export interface SquarePayload {
   x: number
   y: number
   val: number | ""
@@ -32,11 +32,9 @@ export const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
-    setSquare: (state, action: PayloadAction<BoardPayload>) => {
+    setSquare: (state, action: PayloadAction<SquarePayload>) => {
       const { x, y, val } = action.payload
-      let grid = _.cloneDeep(state.grid)
-      grid[x][y] = val
-      state.grid = grid
+      state.grid[x][y] = val
     },
     setGrid: (state, action: PayloadAction<Array<Array<number | "">>>) => {
       state.grid = action.payload

@@ -2,7 +2,7 @@ import React from 'react';
 import { Board } from './features/board/Board';
 import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { selectGrid, setGrid, solveGrid, clearGrid } from './features/board/boardSlice';
+import { selectGrid, setGrid, solveGrid, clearGrid, toggleNoteMode, selectIsNoteMode } from './features/board/boardSlice';
 import { generateBoard } from './features/Sudoku';
 import Chip, { ChipProps } from './features/chip/Chip';
 import ChipGroup from './features/chip-group/ChipGroup';
@@ -12,6 +12,7 @@ import ChipGroup from './features/chip-group/ChipGroup';
 function App() {
   const dispatch = useAppDispatch()
   const grid = useAppSelector(selectGrid)
+  const noteMode = useAppSelector(selectIsNoteMode)
 
   const gameBar: Array<ChipProps> = [
     {
@@ -28,7 +29,8 @@ function App() {
     },
     {
       content: "✏️",
-      onClick: () => { console.log('Toggle note mode here.') }
+      onClick: () => { dispatch(toggleNoteMode()) },
+      active: noteMode
     }
   ]
 

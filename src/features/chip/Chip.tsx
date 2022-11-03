@@ -8,11 +8,13 @@ export interface ChipProps {
 }
 class Chip extends React.Component<ChipProps> {
   render() {
+    const { content, onClick, active } = this.props
+    const style = styles.chip + (active ? ' ' + styles.active : '')
     return (
       <>
-        <div className={ styles.chip } onClick={ this.props.onClick }>
+        <div className={ style } onClick={ onClick }>
           <div className={ styles['chip-wrapper'] }>
-            <div className={ styles['chip-text'] }>{ this.props.content }</div>
+            <div className={ styles['chip-text'] }>{ content }</div>
           </div>
         </div>
       </>

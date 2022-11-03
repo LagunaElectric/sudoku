@@ -1,27 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import { Board } from './features/sudoku/board/Board';
 import './App.css';
-import { useAppSelector } from './app/hooks';
-import { selectGrid } from './features/sudoku/board/boardSlice';
+import { useAppDispatch, useAppSelector } from './app/hooks';
+import { selectGrid, setGrid } from './features/sudoku/board/boardSlice';
+import { generateBoard } from './features/sudoku/Sudoku';
+import { Chip } from './features/sudoku/chip/Chip';
 
 
 
 function App() {
+  const dispatch = useAppDispatch()
   const grid = useAppSelector(selectGrid)
   return (
     <div className="App">
       <h1>Sudoku</h1>
       <Board />
+      <Chip content="Generate Board" onClick={ () => dispatch(setGrid(generateBoard())) } />
       <button style={ { marginTop: '25px' } } onClick={ () => console.log(grid) }>Log Grid</button>
-      <header className="App-header" style={ { display: 'none' } }>
-        <img src={ logo } className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </header>
+      <Chip content="✏️" onClick={ () => console.log('clicked it!') } />
     </div>
   );
 }

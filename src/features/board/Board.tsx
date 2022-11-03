@@ -1,5 +1,5 @@
-import { useAppSelector } from '../../../app/hooks'
-import { Cell } from '../cell/Cell'
+import { useAppSelector } from '../../app/hooks'
+import Cell from '../cell/Cell'
 import styles from './Board.module.css'
 import { selectGrid } from './boardSlice'
 

@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { SquarePayload, selectGrid, setSquare } from '../board/boardSlice'
 import { valdiateSquare } from '../Sudoku'
 import styles from './Cell.module.css'
@@ -13,7 +13,7 @@ interface CellProps {
 const forbiddenKeys = ['e', 'E', '-', '+', '.']
 
 
-export function Cell(props: CellProps) {
+export default function Cell(props: CellProps) {
   const dispatch = useAppDispatch()
   const board = useAppSelector(selectGrid)
   const squareColor = valdiateSquare(board, props.x, props.y, props.value ?? 0) ? 'transparent' : '#ff000055'

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import _ from "lodash"
-import { RootState } from "../../../app/store"
+import { RootState } from "../../app/store"
 import { solveBoard } from "../Sudoku"
 
 export interface BoardState {

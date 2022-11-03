@@ -1,10 +1,10 @@
 import React from 'react';
-import { Board } from './features/sudoku/board/Board';
+import { Board } from './features/board/Board';
 import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { selectGrid, setGrid, solveGrid, clearGrid } from './features/sudoku/board/boardSlice';
-import { generateBoard } from './features/sudoku/Sudoku';
-import Chip from './features/sudoku/chip/Chip';
+import { selectGrid, setGrid, solveGrid, clearGrid } from './features/board/boardSlice';
+import { generateBoard } from './features/Sudoku';
+import Chip from './features/chip/Chip';
 
 
 

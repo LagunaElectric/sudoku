@@ -1,13 +1,11 @@
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { Cell } from '../cell/Cell'
-import { generateBoard } from '../Sudoku'
+import { useAppSelector } from '../../app/hooks'
+import Cell from '../cell/Cell'
 import styles from './Board.module.css'
-import { selectGrid, setGrid } from './boardSlice'
+import { selectGrid } from './boardSlice'
 
 export function Board() {
   const board = []
   const grid = useAppSelector(selectGrid)
-  const dispatch = useAppDispatch()
 
 
 
@@ -21,7 +19,6 @@ export function Board() {
   return (
     <>
       <div className={ styles.board }>{ board }</div>
-      <button onClick={ () => dispatch(setGrid(generateBoard())) }>Generate Board</button>
     </>
   )
 }

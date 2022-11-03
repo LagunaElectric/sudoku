@@ -10,7 +10,7 @@ export default function ChipGroup(props: ChipGroupProps) {
 
   return (
     <div className={ styles['chip-group'] }>
-      { props.children ?? props.chipConfig?.map((chip, index) => { return <Chip { ...chip } /> }) }
+      { props.children ?? props.chipConfig?.map((chip, index) => { return <Chip key={ index } { ...chip } /> }) }
     </div>
   );
 }

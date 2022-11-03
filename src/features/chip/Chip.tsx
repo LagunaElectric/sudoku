@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Chip.module.css'
 
-interface ChipProps {
+export interface ChipProps {
   content: string | JSX.Element,
   onClick?: () => void
   active?: boolean

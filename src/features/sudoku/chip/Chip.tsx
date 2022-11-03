@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from './Chip.module.css'
 
 interface ChipProps {
@@ -6,20 +7,22 @@ interface ChipProps {
   active?: boolean
 }
 
-export function Chip(props: ChipProps) {
-  const inlineStyle = {
-    backgroundColor: props.active ? '#00000055' : 'transparent',
-    "&:hover": {
-      backgroundColor: '#0ff5'
+export class Chip extends React.Component<ChipProps> {
+  render() {
+    const inlineStyle = {
+      backgroundColor: this.props.active ? '#00000055' : 'transparent',
+      "&:hover": {
+        backgroundColor: '#0ff5'
+      }
     }
-  }
-  return (
-    <>
-      <div className={ styles.chip } style={ inlineStyle } onClick={ props.onClick }>
-        <div className={ styles['chip-wrapper'] }>
-          <div className={ styles['chip-text'] }>{ props.content }</div>
+    return (
+      <>
+        <div className={ styles.chip } style={ inlineStyle } onClick={ this.props.onClick }>
+          <div className={ styles['chip-wrapper'] }>
+            <div className={ styles['chip-text'] }>{ this.props.content }</div>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }

@@ -4,7 +4,7 @@ import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { selectGrid, setGrid } from './features/sudoku/board/boardSlice';
 import { generateBoard } from './features/sudoku/Sudoku';
-import { Chip } from './features/sudoku/chip/Chip';
+import Chip from './features/sudoku/chip/Chip';
 
 
 

@@ -8,10 +8,16 @@
   caret-color: transparent;
 }
 
+.chip:hover {
+  color: #555;
+  background-color: #d5d5d5;
+}
+
 .chip-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   margin: 0 .5rem
 }
 

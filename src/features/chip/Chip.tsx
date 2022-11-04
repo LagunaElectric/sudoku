@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Chip.module.css'
+import { motion } from 'framer-motion'
 
 export interface ChipProps {
   content: string | JSX.Element,
@@ -12,11 +13,16 @@ class Chip extends React.Component<ChipProps> {
     const style = styles.chip + (active ? ' ' + styles.active : '')
     return (
       <>
-        <div className={ style } onClick={ onClick }>
+        <motion.div
+          className={ style }
+          onClick={ onClick }
+          whileHover={ { scale: 1.1 } }
+          whileTap={ { scale: 0.9 } }
+        >
           <div className={ styles['chip-wrapper'] }>
             <div className={ styles['chip-text'] }>{ content }</div>
           </div>
-        </div>
+        </motion.div>
       </>
     );
   }

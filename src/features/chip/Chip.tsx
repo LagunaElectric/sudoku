@@ -10,11 +10,11 @@ export interface ChipProps {
 class Chip extends React.Component<ChipProps> {
   render() {
     const { content, onClick, active } = this.props
-    const style = styles.chip + (active ? ' ' + styles.active : '')
+    const chipStyle = styles.chip + (active ? ' ' + styles.active : '')
     return (
       <>
         <motion.div
-          className={ style }
+          className={ chipStyle }
           onClick={ onClick }
           whileHover={ { scale: 1.1 } }
           whileTap={ { scale: 0.9 } }

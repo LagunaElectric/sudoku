@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   background-color: transparent;
+  caret-color: transparent;
 }
 
 .input {
@@ -16,6 +17,7 @@
   font-size: 1.25rem;
   color: rgb(211, 211, 211);
   background-color: transparent;
+  caret-color: rgb(211, 211, 211);
 }
 
 .input:hover {

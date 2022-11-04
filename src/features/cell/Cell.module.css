@@ -8,16 +8,6 @@
   background-color: transparent;
 }
 
-.status-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* should be slightly smaller than a cell */
-  width: 45px;
-  height: 45px;
-  border-radius: 50px;
-}
-
 .input {
   width: 50%;
   height: 50%;

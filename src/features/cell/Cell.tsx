@@ -20,6 +20,16 @@ export default function Cell(props: CellProps) {
   const cellInput = React.useRef<HTMLInputElement>(null)
   const squareColor = valdiateSquare(board, props.x, props.y, props.value ?? 0) ? 'transparent' : '#ff000055'
 
+  const statusWrapperStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '45px',
+    height: '45px',
+    borderRadius: '50px',
+    backgroundColor: squareColor
+  }
+
 
 
   function inputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -43,10 +53,11 @@ export default function Cell(props: CellProps) {
     dispatch(setSquare(payload))
   }
 
+
   return (
     <>
       <div className={ styles.cell } onClick={ () => cellInput.current?.focus() }>
-        <div className={ styles['status-wrapper'] } style={ { backgroundColor: squareColor } }>
+        <div style={ statusWrapperStyle }>
           <input
             ref={ cellInput }
             className={ styles.input }

@@ -7,6 +7,7 @@ export interface BoardState {
   grid: Array<Array<number | "">>
   status: "uninitialized" | "new" | "incomplete" | "solved"
   isNoteMode: boolean
+  selectedCell: [number, number] | null
 }
 
 export interface SquarePayload {
@@ -28,7 +29,8 @@ const initialState: BoardState = {
     ["", "", "", "", "", "", "", "", 1]
   ],
   status: "uninitialized",
-  isNoteMode: false
+  isNoteMode: false,
+  selectedCell: null
 }
 
 export const boardSlice = createSlice({
@@ -54,17 +56,27 @@ export const boardSlice = createSlice({
     },
     toggleNoteMode: (state) => {
       state.isNoteMode = !state.isNoteMode
+    },
+    setSelectedCell: (state, action: PayloadAction<[number, number]>) => {
+      state.selectedCell = action.payload
     }
   }
 })
 
-export const { setSquare, setGrid, clearGrid, solveGrid, toggleNoteMode } =
-  boardSlice.actions
+export const {
+  setSquare,
+  setGrid,
+  clearGrid,
+  solveGrid,
+  toggleNoteMode,
+  setSelectedCell
+} = boardSlice.actions
 
 export const selectGrid = (state: RootState) => state.board.grid
 export const selectSquare = (state: RootState, x: number, y: number) =>
   state.board.grid[x][y]
 export const selectStatus = (state: RootState) => state.board.status
 export const selectIsNoteMode = (state: RootState) => state.board.isNoteMode
+export const selectSelectedCell = (state: RootState) => state.board.selectedCell
 
 export default boardSlice.reducer

@@ -7,7 +7,8 @@ import styles from './Cell.module.css'
 interface CellProps {
   x: number,
   y: number,
-  value: number | ''
+  value: number | '',
+  noteMode: boolean
 }
 
 const forbiddenKeys = ['e', 'E', '-', '+', '.']
@@ -16,6 +17,7 @@ const forbiddenKeys = ['e', 'E', '-', '+', '.']
 export default function Cell(props: CellProps) {
   const dispatch = useAppDispatch()
   const board = useAppSelector(selectGrid)
+  const cellInput = React.useRef<HTMLInputElement>(null)
   const squareColor = valdiateSquare(board, props.x, props.y, props.value ?? 0) ? 'transparent' : '#ff000055'
 
 
@@ -43,9 +45,10 @@ export default function Cell(props: CellProps) {
 
   return (
     <>
-      <div className={ styles.cell }>
+      <div className={ styles.cell } onClick={ () => cellInput.current?.focus() }>
         <div className={ styles['status-wrapper'] } style={ { backgroundColor: squareColor } }>
           <input
+            ref={ cellInput }
             className={ styles.input }
             type="number"
             value={ props.value }

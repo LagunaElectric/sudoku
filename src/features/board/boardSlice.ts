@@ -5,6 +5,7 @@ import { solveBoard } from "../Sudoku"
 
 export interface BoardState {
   grid: Array<Array<number | "">>
+  notes: Array<Array<Array<number>>>
   status: "uninitialized" | "new" | "incomplete" | "solved"
   isNoteMode: boolean
   selectedCell: [number, number] | null
@@ -27,6 +28,17 @@ const initialState: BoardState = {
     ["", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", 1]
+  ],
+  notes: [
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []]
   ],
   status: "uninitialized",
   isNoteMode: false,

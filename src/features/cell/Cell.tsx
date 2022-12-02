@@ -27,10 +27,11 @@ export default function Cell(props: CellProps) {
   let sameCell = false
   const selectedCell = useAppSelector(selectSelectedCell)
   if (selectedCell) {
-    sameRow = selectedCell[0] === props.x
-    sameColumn = selectedCell[1] === props.y
-    sameBox = Math.floor(selectedCell[0] / 3) === Math.floor(props.x / 3) && Math.floor(selectedCell[1] / 3) === Math.floor(props.y / 3)
-    sameCell = selectedCell[0] === props.x && selectedCell[1] === props.y
+    const [x, y] = selectedCell
+    sameRow = x === props.x
+    sameColumn = y === props.y
+    sameBox = Math.floor(x / 3) === Math.floor(props.x / 3) && Math.floor(y / 3) === Math.floor(props.y / 3)
+    sameCell = sameRow && sameColumn
     inSelectedGroup = sameRow || sameColumn || sameBox || sameCell
   }
 
@@ -48,7 +49,9 @@ export default function Cell(props: CellProps) {
 
   function cellClicked(e: React.MouseEvent) {
     dispatch(setSelectedCell([props.x, props.y]))
-    if (cellInput.current) {
+    if (props.noteMode) {
+      //todo
+    } else if (cellInput.current) {
       cellInput.current.focus()
     }
   }

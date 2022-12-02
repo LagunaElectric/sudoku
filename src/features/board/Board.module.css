@@ -1,5 +1,6 @@
 :root {
   --grid-color: rgb(146, 146, 146);
+  --accent-color: rgb(108, 193, 196);
 }
 
 /* The board is a grid of 9x9 cells */
@@ -33,9 +34,11 @@
 .board> :nth-child(n+19):nth-child(-n+27)::before,
 .board> :nth-child(n+46):nth-child(-n+54)::before {
   height: 4px;
-  width: 54px;
-  left: -2px;
+  width: 58px;
+  left: -4px;
   border-radius: 4px;
+  background-color: var(--accent-color);
+  z-index: 1;
 }
 
 .board> :nth-child(3n):not(:nth-child(9n))::after,
@@ -60,18 +63,20 @@
 /* The third and sixth rows should have a 4px bottom border */
 .board> :nth-child(n+19):nth-child(-n+27),
 .board> :nth-child(n+46):nth-child(-n+54) {
-  border-bottom: 4px solid var(--grid-color);
+  border-bottom: 4px solid var(--accent-color);
 }
 
 /* The third and sixth columns should have a 4px right border */
 .board> :nth-child(3n):not(:nth-child(9n)) {
-  border-right: 4px solid var(--grid-color);
+  border-right: 4px solid var(--accent-color);
 }
 
 .board> :nth-child(3n):not(:nth-child(9n))::after {
   width: 4px;
-  height: 56px;
-  top: -2px;
+  height: 58px;
+  top: -4px;
   right: -4px;
   border-radius: 2px;
+  background-color: var(--accent-color);
+  z-index: 1;
 }

@@ -58,7 +58,8 @@ export const boardSlice = createSlice({
       state.isNoteMode = !state.isNoteMode
     },
     setSelectedCell: (state, action: PayloadAction<[number, number]>) => {
-      state.selectedCell = action.payload
+      const isSameCell = _.isEqual(state.selectedCell, action.payload)
+      state.selectedCell = isSameCell ? [-1, -1] : action.payload
     }
   }
 })

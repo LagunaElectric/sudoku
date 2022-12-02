@@ -13,13 +13,35 @@
 
 /* Each row except the last should have a 2px bottom border */
 .board> :not(:nth-child(n+73):nth-child(-n+81)) {
+  position: relative;
   border-bottom: 2px solid var(--grid-color);
+}
+
+.board> :nth-child(n+19):nth-child(-n+27)::before,
+.board> :nth-child(n+46):nth-child(-n+54)::before,
+.board> :not(:nth-child(n+73):nth-child(-n+81))::before {
+  content: "";
+  position: absolute;
+  width: 52px;
+  height: 2px;
+  background-color: var(--grid-color);
+  top: 100%;
+  left: -1px;
+  border-radius: 1px;
+}
+
+.board> :nth-child(n+19):nth-child(-n+27)::before,
+.board> :nth-child(n+46):nth-child(-n+54)::before {
+  height: 4px;
+  width: 54px;
+  left: -2px;
+  border-radius: 4px;
 }
 
 .board> :nth-child(3n):not(:nth-child(9n))::after,
 .board> :not(:nth-child(9n+9))::after {
   content: "";
-  display: inline-block;
+  display: block;
   position: absolute;
   width: 2px;
   height: 53px;

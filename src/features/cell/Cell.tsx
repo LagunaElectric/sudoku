@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { SquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell } from '../board/boardSlice'
+import { SetSquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell } from '../board/boardSlice'
 import { valdiateSquare } from '../Sudoku'
 import styles from './Cell.module.css'
 
@@ -65,7 +65,7 @@ export default function Cell(props: CellProps) {
       newValue = !isNaN && isNew && num ? num : newValue
     })
 
-    const payload: SquarePayload = {
+    const payload: SetSquarePayload = {
       x: props.x,
       y: props.y,
       val: newValue

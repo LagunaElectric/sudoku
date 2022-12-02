@@ -10,7 +10,7 @@ export interface BoardState {
   selectedCell: [number, number] | null
 }
 
-export interface SquarePayload {
+export interface SetSquarePayload {
   x: number
   y: number
   val: number | ""
@@ -37,7 +37,7 @@ export const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
-    setSquare: (state, action: PayloadAction<SquarePayload>) => {
+    setSquare: (state, action: PayloadAction<SetSquarePayload>) => {
       const { x, y, val } = action.payload
       state.grid[x][y] = val
     },

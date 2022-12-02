@@ -16,8 +16,22 @@
   border-bottom: 2px solid var(--grid-color);
 }
 
+.board> :nth-child(3n):not(:nth-child(9n))::after,
+.board> :not(:nth-child(9n+9))::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 2px;
+  height: 53px;
+  background-color: var(--grid-color);
+  top: -1px;
+  right: -2px;
+  border-radius: 1px;
+}
+
 /* Each column except the last should have a 2px right border */
 .board> :not(:nth-child(9n+9)) {
+  position: relative;
   border-right: 2px solid var(--grid-color);
 }
 
@@ -30,4 +44,12 @@
 /* The third and sixth columns should have a 4px right border */
 .board> :nth-child(3n):not(:nth-child(9n)) {
   border-right: 4px solid var(--grid-color);
+}
+
+.board> :nth-child(3n):not(:nth-child(9n))::after {
+  width: 4px;
+  height: 56px;
+  top: -2px;
+  right: -4px;
+  border-radius: 2px;
 }

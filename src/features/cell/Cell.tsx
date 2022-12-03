@@ -48,12 +48,15 @@ export default function Cell(props: CellProps) {
 
   function cellClicked(e: React.MouseEvent) {
     dispatch(setSelectedCell([props.x, props.y]))
+    cellInput.current && (cellInput.current.disabled = !props.noteMode)
     if (props.noteMode) {
       //todo
       return
     }
 
-    if (cellInput.current && selectedCell && selectedCell[0] !== props.x && selectedCell[1] !== props.y) {
+    if (!cellInput.current) return
+
+    if (selectedCell && selectedCell[0] !== props.x && selectedCell[1] !== props.y) {
       cellInput.current.focus()
     } else {
       cellInput.current?.blur()

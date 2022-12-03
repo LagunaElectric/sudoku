@@ -66,12 +66,12 @@ export const boardSlice = createSlice({
       state.grid = solved
       state.status = "solved"
     },
-    toggleNoteMode: (state) => {
-      state.isNoteMode = !state.isNoteMode
-    },
     setSelectedCell: (state, action: PayloadAction<[number, number]>) => {
       const isSameCell = _.isEqual(state.selectedCell, action.payload)
       state.selectedCell = isSameCell ? [-1, -1] : action.payload
+    },
+    toggleNoteMode: (state) => {
+      state.isNoteMode = !state.isNoteMode
     },
     addNote: (state, action: PayloadAction<number>) => {
       if (!state.selectedCell) return

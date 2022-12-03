@@ -9,6 +9,10 @@
   caret-color: transparent;
 }
 
+.cell:last-child {
+  position: relative;
+}
+
 .input {
   width: 50%;
   height: 50%;
@@ -33,4 +37,20 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;
   margin: 0;
+}
+
+.noteWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.note {
+  display: flex;
+  background-color: transparent;
+  caret-color: transparent;
 }

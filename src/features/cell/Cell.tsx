@@ -47,6 +47,10 @@ export default function Cell(props: CellProps) {
     backgroundColor: statusColor
   }
 
+  const inputStyle = {
+    caretColor: 'transparent',
+  }
+
   function cellClicked(e: React.MouseEvent) {
     dispatch(setSelectedCell([props.x, props.y]))
 
@@ -91,7 +95,7 @@ export default function Cell(props: CellProps) {
       <div className={ styles.cell } onClick={ cellClicked } { ...(inSelectedGroup ? { style: { backgroundColor: "#00000053" } } : {}) }>
         <div style={ statusWrapperStyle }>
           <div className={ styles.noteWrapper }>
-            { props.noteMode && notes.map((note) => <div key={ note } className={ styles.note }>{ note }</div>) }
+            { !props.value && notes.map((note) => <div key={ note } className={ styles.note }>{ note }</div>) }
           </div>
           <input
             ref={ cellInput }
@@ -100,7 +104,7 @@ export default function Cell(props: CellProps) {
             value={ props.value }
             onChange={ inputChange }
             onKeyDown={ (evt) => forbiddenKeys.includes(evt.key) && evt.preventDefault() }
-            { ...{} }
+            { ...(props.noteMode ? { style: inputStyle } : {}) }
           />
         </div>
       </div>

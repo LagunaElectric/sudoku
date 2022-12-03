@@ -53,7 +53,7 @@ export default function Cell(props: CellProps) {
     if (!cellInput.current) return
 
     // if (selectedCell && selectedCell[0] !== props.x && selectedCell[1] !== props.y) {
-      cellInput.current.focus()
+    cellInput.current.focus()
     // } else {
     //   cellInput.current?.blur()
     // }
@@ -90,6 +90,9 @@ export default function Cell(props: CellProps) {
     <>
       <div className={ styles.cell } onClick={ cellClicked } { ...(inSelectedGroup ? { style: { backgroundColor: "#00000053" } } : {}) }>
         <div style={ statusWrapperStyle }>
+          <div className={ styles.noteWrapper }>
+            { props.noteMode && notes.map((note) => <div key={ note } className={ styles.note }>{ note }</div>) }
+          </div>
           <input
             ref={ cellInput }
             className={ styles.input }

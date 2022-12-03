@@ -19,7 +19,6 @@ export default function Cell(props: CellProps) {
   const board = useAppSelector(selectGrid)
   const cellInput = React.useRef<HTMLInputElement>(null)
 
-  // determine if cell is in same row, column, or box as selected cell
   let inSelectedGroup = false
   let sameRow = false
   let sameColumn = false
@@ -51,8 +50,13 @@ export default function Cell(props: CellProps) {
     dispatch(setSelectedCell([props.x, props.y]))
     if (props.noteMode) {
       //todo
-    } else if (cellInput.current) {
+      return
+    }
+
+    if (cellInput.current && selectedCell && selectedCell[0] !== props.x && selectedCell[1] !== props.y) {
       cellInput.current.focus()
+    } else {
+      cellInput.current?.blur()
     }
   }
 

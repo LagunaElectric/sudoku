@@ -72,6 +72,21 @@ export const boardSlice = createSlice({
     setSelectedCell: (state, action: PayloadAction<[number, number]>) => {
       const isSameCell = _.isEqual(state.selectedCell, action.payload)
       state.selectedCell = isSameCell ? [-1, -1] : action.payload
+    },
+    addNote: (state, action: PayloadAction<number>) => {
+      if (!state.selectedCell) return
+      const [x, y] = state.selectedCell
+      state.notes[x][y].push(action.payload)
+    },
+    removeNote: (state, action: PayloadAction<number>) => {
+      if (!state.selectedCell) return
+      const [x, y] = state.selectedCell
+      state.notes[x][y] = state.notes[x][y].filter((n) => n !== action.payload)
+    },
+    clearNotes: (state) => {
+      if (!state.selectedCell) return
+      const [x, y] = state.selectedCell
+      state.notes[x][y] = []
     }
   }
 })
@@ -82,7 +97,10 @@ export const {
   clearGrid,
   solveGrid,
   toggleNoteMode,
-  setSelectedCell
+  setSelectedCell,
+  addNote,
+  removeNote,
+  clearNotes
 } = boardSlice.actions
 
 export const selectGrid = (state: RootState) => state.board.grid
@@ -91,5 +109,6 @@ export const selectSquare = (state: RootState, x: number, y: number) =>
 export const selectStatus = (state: RootState) => state.board.status
 export const selectIsNoteMode = (state: RootState) => state.board.isNoteMode
 export const selectSelectedCell = (state: RootState) => state.board.selectedCell
+export const selectNotes = (state: RootState) => state.board.notes
 
 export default boardSlice.reducer

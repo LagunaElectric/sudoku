@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { SetSquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell } from '../board/boardSlice'
+import { SetSquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell, addNote, removeNote, selectNotes } from '../board/boardSlice'
 import { valdiateSquare } from '../Sudoku'
 import styles from './Cell.module.css'
 
@@ -17,6 +17,7 @@ const forbiddenKeys = ['e', 'E', '-', '+', '.']
 export default function Cell(props: CellProps) {
   const dispatch = useAppDispatch()
   const board = useAppSelector(selectGrid)
+  const notes = useAppSelector(selectNotes)[props.x][props.y]
   const cellInput = React.useRef<HTMLInputElement>(null)
 
   let inSelectedGroup = false
@@ -48,19 +49,14 @@ export default function Cell(props: CellProps) {
 
   function cellClicked(e: React.MouseEvent) {
     dispatch(setSelectedCell([props.x, props.y]))
-    cellInput.current && (cellInput.current.disabled = !props.noteMode)
-    if (props.noteMode) {
-      //todo
-      return
-    }
 
     if (!cellInput.current) return
 
-    if (selectedCell && selectedCell[0] !== props.x && selectedCell[1] !== props.y) {
+    // if (selectedCell && selectedCell[0] !== props.x && selectedCell[1] !== props.y) {
       cellInput.current.focus()
-    } else {
-      cellInput.current?.blur()
-    }
+    // } else {
+    //   cellInput.current?.blur()
+    // }
   }
 
   function inputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -74,6 +70,12 @@ export default function Cell(props: CellProps) {
       const isNew = num !== board[props.x][props.y]
       newValue = !isNaN && isNew && num ? num : newValue
     })
+
+    if (props.noteMode && Number.isInteger(Number(newValue))) {
+      console.log(notes)
+      notes.includes(Number(newValue)) ? dispatch(removeNote(Number(newValue))) : dispatch(addNote(Number(newValue)))
+      return
+    }
 
     const payload: SetSquarePayload = {
       x: props.x,

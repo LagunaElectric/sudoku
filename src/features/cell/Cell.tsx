@@ -75,7 +75,7 @@ export default function Cell(props: CellProps) {
       newValue = !isNaN && isNew && num ? num : newValue
     })
 
-    if (props.noteMode && Number.isInteger(Number(newValue))) {
+    if (props.noteMode && Number.isInteger(Number(newValue)) && Number(newValue)) {
       console.log(notes)
       notes.includes(Number(newValue)) ? dispatch(removeNote(Number(newValue))) : dispatch(addNote(Number(newValue)))
       return

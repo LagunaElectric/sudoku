@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { SetSquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell, addNote, removeNote, selectNotes } from '../board/boardSlice'
+import { SquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell, addNote, removeNote, selectNotes } from '../board/boardSlice'
 import { valdiateSquare } from '../Sudoku'
 import styles from './Cell.module.css'
 
@@ -17,7 +17,8 @@ const forbiddenKeys = ['e', 'E', '-', '+', '.']
 export default function Cell(props: CellProps) {
   const dispatch = useAppDispatch()
   const board = useAppSelector(selectGrid)
-  const notes = useAppSelector(selectNotes)[props.x][props.y]
+  const allNotes = useAppSelector(selectNotes)
+  const cellNotes = useAppSelector(selectNotes)[props.x][props.y]
   const cellInput = React.useRef<HTMLInputElement>(null)
 
   let inSelectedGroup = false
@@ -75,19 +76,53 @@ export default function Cell(props: CellProps) {
       newValue = !isNaN && isNew && num ? num : newValue
     })
 
-    if (props.noteMode && Number.isInteger(Number(newValue)) && Number(newValue)) {
-      console.log(notes)
-      notes.includes(Number(newValue)) ? dispatch(removeNote(Number(newValue))) : dispatch(addNote(Number(newValue)))
-      return
-    }
-
-    const payload: SetSquarePayload = {
+    const payload: SquarePayload = {
       x: props.x,
       y: props.y,
       val: newValue
     }
 
+    if (props.noteMode && Number.isInteger(Number([payload.val])) && Number(payload.val)) {
+      console.log(cellNotes)
+      cellNotes.includes(payload.val as number) ? dispatch(removeNote(payload)) : dispatch(addNote(payload))
+
+      return
+    }
+
     dispatch(setSquare(payload))
+
+    let cleanupPayload: SquarePayload = {
+      x: -1,
+      y: -1,
+      val: newValue
+    }
+
+    for (let i = 0; i < 9; i++) {
+      if (allNotes[props.x][i].includes(Number(newValue))) {
+        cleanupPayload.x = props.x
+        cleanupPayload.y = i
+        dispatch(removeNote(cleanupPayload))
+      }
+
+      if (allNotes[i][props.y].includes(Number(newValue))) {
+        cleanupPayload.x = i
+        cleanupPayload.y = props.y
+        dispatch(removeNote(cleanupPayload))
+      }
+    }
+
+    const boxX = Math.floor(props.x / 3)
+    const boxY = Math.floor(props.y / 3)
+
+    for (let i = boxX * 3; i < boxX * 3 + 3; i++) {
+      for (let j = boxY * 3; j < boxY * 3 + 3; j++) {
+        if (allNotes[i][j].includes(Number(newValue))) {
+          cleanupPayload.x = i
+          cleanupPayload.y = j
+          dispatch(removeNote(cleanupPayload))
+        }
+      }
+    }
   }
 
   return (
@@ -95,7 +130,7 @@ export default function Cell(props: CellProps) {
       <div className={ styles.cell } onClick={ cellClicked } { ...(inSelectedGroup ? { style: { backgroundColor: "#00000053" } } : {}) }>
         <div style={ statusWrapperStyle }>
           <div className={ styles.noteWrapper }>
-            { !props.value && notes.map((note) => <div key={ note } className={ styles.note }>{ note }</div>) }
+            { !props.value && cellNotes.map((note) => <div key={ note } className={ styles.note }>{ note }</div>) }
           </div>
           <input
             ref={ cellInput }

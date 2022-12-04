@@ -91,6 +91,11 @@ export default function Cell(props: CellProps) {
 
     dispatch(setSquare(payload))
 
+
+    // This next section is to remove notes from cells
+    // in the same row, column, and box as the cell.
+    // It should probably be moved to the reducer.
+
     let cleanupPayload: SquarePayload = {
       x: -1,
       y: -1,

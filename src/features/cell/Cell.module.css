@@ -9,6 +9,10 @@
   caret-color: transparent;
 }
 
+.cell:last-child {
+  position: relative;
+}
+
 .input {
   width: 50%;
   height: 50%;
@@ -33,4 +37,21 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;
   margin: 0;
+}
+
+.noteWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.note {
+  display: flex;
+  font-size: .7rem;
+  background-color: transparent;
+  caret-color: transparent;
+  justify-content: center;
 }

@@ -11,7 +11,7 @@ export interface BoardState {
   selectedCell: [number, number] | null
 }
 
-export interface SetSquarePayload {
+export interface SquarePayload {
   x: number
   y: number
   val: number | ""
@@ -49,7 +49,7 @@ export const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
-    setSquare: (state, action: PayloadAction<SetSquarePayload>) => {
+    setSquare: (state, action: PayloadAction<SquarePayload>) => {
       const { x, y, val } = action.payload
       state.grid[x][y] = val
     },
@@ -66,22 +66,21 @@ export const boardSlice = createSlice({
       state.grid = solved
       state.status = "solved"
     },
-    toggleNoteMode: (state) => {
-      state.isNoteMode = !state.isNoteMode
-    },
     setSelectedCell: (state, action: PayloadAction<[number, number]>) => {
       const isSameCell = _.isEqual(state.selectedCell, action.payload)
       state.selectedCell = isSameCell ? [-1, -1] : action.payload
     },
-    addNote: (state, action: PayloadAction<number>) => {
-      if (!state.selectedCell) return
-      const [x, y] = state.selectedCell
-      state.notes[x][y].push(action.payload)
+    toggleNoteMode: (state) => {
+      state.isNoteMode = !state.isNoteMode
     },
-    removeNote: (state, action: PayloadAction<number>) => {
+    addNote: (state, action: PayloadAction<SquarePayload>) => {
       if (!state.selectedCell) return
       const [x, y] = state.selectedCell
-      state.notes[x][y] = state.notes[x][y].filter((n) => n !== action.payload)
+      state.notes[x][y].push(action.payload.val as number)
+    },
+    removeNote: (state, action: PayloadAction<SquarePayload>) => {
+      const { x, y, val } = action.payload
+      state.notes[x][y] = state.notes[x][y].filter((n) => n !== (val as number))
     },
     clearNotes: (state) => {
       if (!state.selectedCell) return

@@ -52,11 +52,11 @@ export default function Cell(props: CellProps) {
 
     if (!cellInput.current) return
 
-    // if (selectedCell && selectedCell[0] !== props.x && selectedCell[1] !== props.y) {
+    if (!sameCell) {
       cellInput.current.focus()
-    // } else {
-    //   cellInput.current?.blur()
-    // }
+    } else {
+      cellInput.current?.blur()
+    }
   }
 
   function inputChange(e: ChangeEvent<HTMLInputElement>) {

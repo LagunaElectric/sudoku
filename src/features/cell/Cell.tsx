@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { SquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell, addNote, removeNote, selectNotes } from '../board/boardSlice'
+import { SquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell, addNote, removeNote, selectNotes, clearNotes } from '../board/boardSlice'
 import { valdiateSquare } from '../Sudoku'
 import styles from './Cell.module.css'
 
@@ -90,6 +90,7 @@ export default function Cell(props: CellProps) {
     }
 
     dispatch(setSquare(payload))
+    dispatch(clearNotes(payload))
 
 
     // This next section is to remove notes from cells

@@ -9,6 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
+    -webkit-animation: App-logo-float infinite 3s ease-in-out;
     animation: App-logo-float infinite 3s ease-in-out;
   }
 }
@@ -26,14 +27,43 @@
   color: rgb(112, 76, 182);
 }
 
+@-webkit-keyframes App-logo-float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
 @keyframes App-logo-float {
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(10px);
   }
+
   100% {
     transform: translateY(0px);
   }
+}
+
+.app-title {
+  --color-neon-secondary: #d7d7d7;
+  --margin: .25em;
+  font-family: 'Neonderthaw', cursive;
+  font-weight: 400;
+  font-size: 5rem;
+  color: #fff;
+  -webkit-margin-before: var(--margin);
+  margin-block-start: var(--margin);
+  -webkit-margin-after: var(--margin);
+  margin-block-end: var(--margin);
 }

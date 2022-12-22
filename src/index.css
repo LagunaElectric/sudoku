@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap');
+
+:root {
+  --color-neon-primary: #BC13FE;
+  --color-neon-secondary: #FFFFFF;
+}
+
 body {
   background-color: #1e1e1e;
   color: #d7d7d7;
@@ -10,6 +17,17 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: Operator Mono, source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.neon {
+  text-shadow:
+    0 0 102px var(--color-neon-primary),
+    0 0 92px var(--color-neon-primary),
+    0 0 82px var(--color-neon-primary),
+    0 0 42px var(--color-neon-primary),
+    0 0 21px var(--color-neon-secondary),
+    0 0 10px var(--color-neon-secondary),
+    0 0 7px var(--color-neon-secondary);
 }

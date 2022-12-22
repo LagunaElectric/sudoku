@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Sudoku</h1>
+      <h1 className='neon app-title'>Sudoku</h1>
       <Board />
       <ChipGroup chipConfig={ gameBar } />
       <ChipGroup>

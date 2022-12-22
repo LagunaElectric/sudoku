@@ -2,7 +2,7 @@ import React from 'react';
 import { Board } from './features/board/Board';
 import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { selectGrid, setGrid, solveGrid, clearGrid, toggleNoteMode, selectIsNoteMode } from './features/board/boardSlice';
+import { selectGrid, setGrid, solveGrid, toggleNoteMode, selectIsNoteMode, clearAll } from './features/board/boardSlice';
 import { generateBoard } from './features/Sudoku';
 import Chip, { ChipProps } from './features/chip/Chip';
 import ChipGroup from './features/chip-group/ChipGroup';
@@ -25,7 +25,7 @@ function App() {
     },
     {
       content: 'Clear',
-      onClick: () => { dispatch(clearGrid()) }
+      onClick: () => { dispatch(clearAll()) }
     },
     {
       content: "✏️",

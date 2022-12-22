@@ -83,11 +83,18 @@ export const boardSlice = createSlice({
       state.notes[x][y] = state.notes[x][y].filter((n) => n !== (val as number))
     },
     clearNotes: (state, action: PayloadAction<SquarePayload>) => {
-      const {x, y} = action.payload
+      const { x, y } = action.payload
       state.notes[x][y] = []
     },
     clearAllNotes: (state) => {
       state.notes = new Array(9).fill([]).map(() => new Array(9).fill([]))
+    },
+    clearAll: (state) => {
+      state.grid = new Array(9).fill([]).map(() => new Array(9).fill(""))
+      state.notes = new Array(9).fill([]).map(() => new Array(9).fill([]))
+      state.status = "uninitialized"
+      state.isNoteMode = false
+      state.selectedCell = null
     }
   }
 })
@@ -102,7 +109,8 @@ export const {
   addNote,
   removeNote,
   clearNotes,
-  clearAllNotes
+  clearAllNotes,
+  clearAll
 } = boardSlice.actions
 
 export const selectGrid = (state: RootState) => state.board.grid

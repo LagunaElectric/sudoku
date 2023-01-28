@@ -19,7 +19,7 @@ class Chip extends React.Component<ChipProps> {
           whileHover={ { scale: 1.1 } }
           whileTap={ { scale: 0.9 } }
         >
-          <div className={ styles['chip-wrapper'] }>
+          <div className={ styles['chip-wrapper'] + " group/log" }>
             <div className={ styles['chip-text'] }>{ content }</div>
           </div>
         </motion.div>

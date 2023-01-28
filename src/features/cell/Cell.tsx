@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { SquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell, addNote, removeNote, selectNotes, clearNotes } from '../board/boardSlice'
+import { SquarePayload, selectGrid, setSquare, setSelectedCell, selectSelectedCell, addNote, removeNote, selectNotes, clearNotes, selectSquare } from '../board/boardSlice'
 import { valdiateSquare } from '../Sudoku'
 import styles from './Cell.module.css'
 
@@ -20,6 +20,7 @@ export default function Cell(props: CellProps) {
   const allNotes = useAppSelector(selectNotes)
   const cellNotes = useAppSelector(selectNotes)[props.x][props.y]
   const cellInput = React.useRef<HTMLInputElement>(null)
+  const cell = useAppSelector(selectSquare(props.x, props.y))
 
   let inSelectedGroup = false
   let sameRow = false
@@ -72,7 +73,7 @@ export default function Cell(props: CellProps) {
     input.forEach((char) => {
       const num = Number(char)
       const isNaN = Number.isNaN(num)
-      const isNew = num !== board[props.x][props.y]
+      const isNew = num !== cell
       newValue = !isNaN && isNew && num ? num : newValue
     })
 

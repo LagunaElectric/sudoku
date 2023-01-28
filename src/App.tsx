@@ -35,18 +35,18 @@ function App() {
   ]
 
   return (
-    <div className="App">
+    <div className="text-center">
       <h1 className='neon app-title'>Sudoku</h1>
       <Board />
       <ChipGroup chipConfig={ gameBar } />
       <ChipGroup>
         <Chip content={
           <code>
-            <span style={ { color: 'gray' } }>.</span>
-            <span style={ { color: 'lightgreen' } } >log</span>
-            <span style={ { color: 'gold' } }>(</span>
-            <span style={ { color: 'lightgray' } }>grid</span>
-            <span style={ { color: 'gold' } }>)</span>
+            <span className="text-gray-300  group-hover/log:text-black">.</span>
+            <span className='text-green-400  group-hover/log:text-[#18883d]' >log</span>
+            <span className='text-amber-400 group-hover/log:text-amber-700'>(</span>
+            <span className='text-gray-300 group-hover/log:text-gray-700'>grid</span>
+            <span className='text-amber-400 group-hover/log:text-amber-700'>)</span>
           </code>
         } onClick={ () => console.log("Grid:", grid) } />
       </ChipGroup>

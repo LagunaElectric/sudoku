@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit"
 import _ from "lodash"
 import { RootState } from "../../app/store"
 import { solveBoard } from "../Sudoku"
+import { sliceGrid } from "../../utils/grid"
 
 export interface BoardState {
   grid: Array<Array<number | "">>
@@ -20,7 +21,7 @@ export interface SquarePayload {
 const initialState: BoardState = {
   grid: [
     [1, "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
+    ["", 2, "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", ""],
     ["", "", "", "", 1, "", "", "", ""],
@@ -56,11 +57,11 @@ export const boardSlice = createSlice({
     setGrid: (state, action: PayloadAction<Array<Array<number | "">>>) => {
       state.grid = action.payload
     },
-    clearGrid: (state) => {
+    clearGrid: state => {
       state.grid = new Array(9).fill([]).map(() => new Array(9).fill(""))
       state.status = "uninitialized"
     },
-    solveGrid: (state) => {
+    solveGrid: state => {
       const solved = solveBoard(state.grid)
       if (!solved) return
       state.grid = solved
@@ -70,7 +71,7 @@ export const boardSlice = createSlice({
       const isSameCell = _.isEqual(state.selectedCell, action.payload)
       state.selectedCell = isSameCell ? [-1, -1] : action.payload
     },
-    toggleNoteMode: (state) => {
+    toggleNoteMode: state => {
       state.isNoteMode = !state.isNoteMode
     },
     addNote: (state, action: PayloadAction<SquarePayload>) => {
@@ -80,16 +81,16 @@ export const boardSlice = createSlice({
     },
     removeNote: (state, action: PayloadAction<SquarePayload>) => {
       const { x, y, val } = action.payload
-      state.notes[x][y] = state.notes[x][y].filter((n) => n !== (val as number))
+      state.notes[x][y] = state.notes[x][y].filter(n => n !== (val as number))
     },
     clearNotes: (state, action: PayloadAction<SquarePayload>) => {
       const { x, y } = action.payload
       state.notes[x][y] = []
     },
-    clearAllNotes: (state) => {
+    clearAllNotes: state => {
       state.notes = new Array(9).fill([]).map(() => new Array(9).fill([]))
     },
-    clearAll: (state) => {
+    clearAll: state => {
       state.grid = new Array(9).fill([]).map(() => new Array(9).fill(""))
       state.notes = new Array(9).fill([]).map(() => new Array(9).fill([]))
       state.status = "uninitialized"
@@ -114,11 +115,22 @@ export const {
 } = boardSlice.actions
 
 export const selectGrid = (state: RootState) => state.board.grid
-export const selectSquare = (state: RootState, x: number, y: number) =>
+export const selectSquare = (x: number, y: number) => (state: RootState) =>
   state.board.grid[x][y]
 export const selectStatus = (state: RootState) => state.board.status
 export const selectIsNoteMode = (state: RootState) => state.board.isNoteMode
 export const selectSelectedCell = (state: RootState) => state.board.selectedCell
 export const selectNotes = (state: RootState) => state.board.notes
+
+export const selectSubGrid = (x: number, y: number) =>
+  createSelector(selectGrid, grid => {
+    const maxX = (x + 1) * 3 - 1
+    const maxY = (y + 1) * 3 - 1
+
+    const minX = maxX - 2
+    const minY = maxY - 2
+
+    return sliceGrid(grid, minX, minY, maxX, maxY)
+  })
 
 export default boardSlice.reducer

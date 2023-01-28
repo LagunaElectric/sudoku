@@ -1,5 +1,4 @@
 import React from 'react'
-import styles from './Chip.module.css'
 import { motion } from 'framer-motion'
 
 export interface ChipProps {
@@ -10,17 +9,17 @@ export interface ChipProps {
 class Chip extends React.Component<ChipProps> {
   render() {
     const { content, onClick, active } = this.props
-    const chipStyle = styles.chip + (active ? ' ' + styles.active : '')
+    const chipStyle = (active ? ' text-gray-700 bg-gray-200' : '')
     return (
       <>
         <motion.div
-          className={ chipStyle }
+          className={ "inline-block m-2 rounded-full font-bold text-center cursor-pointer caret-transparent hover:bg-gray-200 hover:text-gray-700" + chipStyle }
           onClick={ onClick }
           whileHover={ { scale: 1.1 } }
           whileTap={ { scale: 0.9 } }
         >
-          <div className={ styles['chip-wrapper'] + " group/log" }>
-            <div className={ styles['chip-text'] }>{ content }</div>
+          <div className={ "group/log flex flex-wrap justify-center mx-2" }>
+            <div className='m-1'>{ content }</div>
           </div>
         </motion.div>
       </>

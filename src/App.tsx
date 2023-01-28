@@ -1,6 +1,5 @@
 import React from 'react';
 import { Board } from './features/board/Board';
-import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { selectGrid, setGrid, solveGrid, toggleNoteMode, selectIsNoteMode, clearAll } from './features/board/boardSlice';
 import { generateBoard } from './features/Sudoku';
@@ -36,7 +35,7 @@ function App() {
 
   return (
     <div className="text-center">
-      <h1 className='neon app-title'>Sudoku</h1>
+      <h1 className='neon mt-8 mb-20 font-title font-normal text-7xl text-white'>Sudoku</h1>
       <Board />
       <ChipGroup chipConfig={ gameBar } />
       <ChipGroup>

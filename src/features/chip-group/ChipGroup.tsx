@@ -1,5 +1,4 @@
 import Chip, { ChipProps } from '../chip/Chip';
-import styles from './ChipGroup.module.css'
 
 interface ChipGroupProps {
   children?: React.ReactNode
@@ -9,7 +8,7 @@ interface ChipGroupProps {
 export default function ChipGroup(props: ChipGroupProps) {
 
   return (
-    <div className={ styles['chip-group'] }>
+    <div className="flex flex-wrap justify-center mx-2 my-10">
       { props.children ?? props.chipConfig?.map((chip, index) => { return <Chip key={ index } { ...chip } /> }) }
     </div>
   );
